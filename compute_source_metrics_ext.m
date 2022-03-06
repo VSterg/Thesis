@@ -1,11 +1,11 @@
 function metrics = compute_source_metrics_ext(source_data,Fs,calm_start,calm_end,act_start,act_end)
 alpha = 0.1; %threshold for CGCIM
-beta = 0.15; %threshold for RCGCIM
+beta = 0.25; %threshold for RCGCIM
 
 
 pmax = 1;
 maketest = 1;
-[metrics.RCGCIM,metrics.pRCGCIM]=mBTSCGCImatrix(source_data',pmax,maketest);
+[metrics.RCGCIM,metrics.pRCGCIM]=mBTSCGCImatrix(source_data(:,5000:10000)',pmax,maketest);
 [metrics.RCGCIM_calm,metrics.pRCGCIM_calm]=mBTSCGCImatrix(source_data(:,calm_start:calm_end)',pmax,maketest);
 [metrics.RCGCIM_act,metrics.pRCGCIM_act]=mBTSCGCImatrix(source_data(:,act_start:act_end)',pmax,maketest);
 metrics.RCGCIM_network = metrics.RCGCIM > beta;
@@ -21,6 +21,7 @@ metrics.RCGCIM_network_act = metrics.RCGCIM_act > beta;
 % metrics.CGCIM_confmat = zeros(2);
 % metrics.CGCIM_confmat_act = zeros(2);
 % metrics.CGCIM_confmat_calm = zeros(2);
+
 metrics.RCGCIM_missclassifications = -1;
 metrics.RCGCIM_missclassifications_calm = -1;
 metrics.RCGCIM_missclassifications_act = -1;

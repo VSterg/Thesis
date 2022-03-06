@@ -105,10 +105,10 @@ metrics.residual_var_norm_act = var(metrics.channel_diff(:,act_start:act_end)').
 
 
 %Compute channel RCGCIM 
-alpha = 0.15; %threshold for rCGCIM
+alpha = 0.05; %threshold for rCGCIM
 pmax = 1;
 maketest = 1;
-[metrics.RCGCIM,metrics.pRCGCIM]=mBTSCGCImatrix(data',pmax,maketest);
+[metrics.RCGCIM,metrics.pRCGCIM]=mBTSCGCImatrix(data(:,5000:10000)',pmax,maketest);
 [metrics.RCGCIM_calm,metrics.pRCGCIM_calm]=mBTSCGCImatrix(data(:,calm_start:calm_end)',pmax,maketest);
 [metrics.RCGCIM_act,metrics.pRCGCIM_act]=mBTSCGCImatrix(data(:,act_start:act_end)',pmax,maketest);
 metrics.RCGCIM_network = metrics.RCGCIM > alpha;
